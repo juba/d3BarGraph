@@ -5,10 +5,12 @@ HTMLWidgets.widget({
   type: 'output',
 
   initialize: function(el, width, height) {
-
-    return {
-      // TODO: add instance fields as required
-    }
+     var instance= d3.select(el).append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      return instance;
 
   },
 
