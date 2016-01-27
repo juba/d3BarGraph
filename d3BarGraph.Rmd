@@ -1,0 +1,175 @@
+---
+title: "D3 Bar Graph"
+author: "Nathan Frey"
+date: "January 23, 2016"
+output: html_document
+---
+
+This is my attempt to make a bar graph using R and D3. I'm putting my work on GitHub to keep it simple
+
+```{r}
+library(htmlwidgets)
+library(roxygen2)
+library(devtools)
+library(jsonlite)
+library(networkD3) #For examples and MisLinks and MisNodes data
+
+```
+A quick function to examine data:  
+```{r}
+lu<- function(x){length(unique(x))}
+
+```
+Get the data:
+```{r}
+set.seed(123)
+numz<- round(runif(15, min=3, max=20),0)
+numz
+```
+
+Now, we'll set up the file scaffolding. I need to find out if running these after I have done work on the widget JavaScript code and R code will wipe out my work. I'll just run this onceInstead, only run the devtools::install() to rebuild the widget and launch it.  
+```{r}
+create("d3BarGraph") #create the package skelton
+htmlwidgets::scaffoldWidget("d3BarGraph") 
+```
+
+Now make the necessary edits to the .yaml file, pyramid.R file, and pyramid.js files.   
+
+I edited the yaml file, added the D3 library as a dependecy, and then told it to use the style.css as the stylesheet. I am not sure if this is correct, but I am going to give it a try.
+
+The next steps are to build the package, as per Hilary Parker's guide...  
+```{r}
+getwd()
+
+
+#If needed for testing:
+setwd("/Users/Nathan/Dropbox/R Projects Personal/pyramid/pyramid")
+
+document() #create the man folder, automatically generate the pyramid.Rd file
+```
+
+Now to install and run the package! Hopefully it works (Fingers crossed)  
+
+```{r}
+getwd()
+setwd("..")
+getwd()
+install("pyramid")
+```
+
+Let's load the library and make a go at it!
+
+```{r}
+library(pyramid)
+pyramid::pyramid(df)
+
+```
+
+
+For quickly rebuilding and attempting to launch:  
+```{r}
+setwd("/Users/Nathan/Dropbox/R Projects Personal/pyramid/pyramid")
+document() #create the man folder, automatically generate the pyramid.Rd file
+setwd("..")
+install("pyramid")
+library(pyramid)
+pyramid::pyramid(df)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
