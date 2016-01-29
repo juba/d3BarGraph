@@ -73,7 +73,7 @@ document() #create the man folder, automatically generate the pyramid.Rd file
 setwd("..")
 install("d3BarGraph")
 library(d3BarGraph)
-d3BarGraph::d3BarGraph(numz, width = 500, height = 500) #somehow fails. not sure ATM...
+d3BarGraph::d3BarGraph(numz, width = 300, height = 300) #somehow fails. not sure ATM...
 ```
 
 
