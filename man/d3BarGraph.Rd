@@ -7,14 +7,14 @@
 d3BarGraph(barData, width = NULL, height = NULL)
 }
 \arguments{
-\item{barData}{a numerical list of values as a dataframe from R. Used for bar height}
+\item{barData}{a numerical list of values or a dataframe from R. Used for bar height}
 
-\item{width}{numeric width for the network graph's width in pixels.}
+\item{width}{numeric width for the graph's width in pixels.}
 
 \item{height}{numeric height for the graph's height in pixels.}
 }
 \value{
-hopefully a graph...and not just a list in the console
+hopefully a graph...and not just a blank screen
 }
 \description{
 Making a bar graph with D3 and R
