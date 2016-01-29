@@ -3,10 +3,11 @@
 #' Making a bar graph with D3 and R
 #'
 #'
-#' @param barData a numerical list of values as a dataframe from R. Used for bar height
+#' @param barData a numerical list of values or a dataframe from R. Used for bar height
 #' @param height numeric height for the graph's height in pixels.
-#' @param width numeric width for the network graph's width in pixels.
-#' @return hopefully a graph...and not just a list in the console
+#' @param width numeric width for the graph's width in pixels.
+#' @return hopefully a graph...and not just a blank screen
+#'
 #' @import htmlwidgets
 #'
 #' @export
