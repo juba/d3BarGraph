@@ -68,12 +68,12 @@ pyramid::pyramid(df)
 
 For quickly rebuilding and attempting to launch:  
 ```{r}
-setwd("/Users/Nathan/Dropbox/R Projects Personal/pyramid/pyramid")
+setwd("/Users/Nathan/Dropbox/R Projects Personal/d3BarGraph")
 document() #create the man folder, automatically generate the pyramid.Rd file
 setwd("..")
-install("pyramid")
-library(pyramid)
-pyramid::pyramid(df)
+install("d3BarGraph")
+library(d3BarGraph)
+d3BarGraph::d3BarGraph(numz, width = 500, height = 500) #somehow fails. not sure ATM...
 ```
 
 

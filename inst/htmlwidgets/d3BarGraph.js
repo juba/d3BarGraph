@@ -4,6 +4,8 @@ HTMLWidgets.widget({
 
   type: 'output',
 
+  renderOnNullValue: true,
+
   initialize: function(el, width, height) {
 
     var instance =  d3.select(el).append("svg")
@@ -15,6 +17,7 @@ HTMLWidgets.widget({
   },
 
   renderValue: function(el, params, instance) {
+    instance.lastValue = params;
 
     var df = HTMLWidgets.dataframeToD3(params.data);
     //var margin = {top: 20, right: 10, bottom: 20, left: 10}
@@ -65,7 +68,10 @@ HTMLWidgets.widget({
   },
 
   resize: function(el, width, height, instance) {
-
+    // Re-render the previous value, if any
+    if (instance.lastValue) {
+      this.renderValue(el, instance.lastValue, instance);
+    }
   }
 
 });

@@ -6,14 +6,16 @@
 #' @param barData a numerical list of values as a dataframe from R. Used for bar height
 #' @param height numeric height for the graph's height in pixels.
 #' @param width numeric width for the network graph's width in pixels.
+#' @return hopefully a graph...and not just a list in the console
 #' @import htmlwidgets
 #'
 #' @export
 d3BarGraph <- function(barData, width = NULL, height = NULL) {
   if(!is.data.frame(barData)){
     barData<- as.data.frame(barData)
+    barData
   }
-  return(barData)
+  #return(barData)
 
   # forward options using params list
   options = list(height=height, width=width)
