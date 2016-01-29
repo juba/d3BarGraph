@@ -1,23 +1,34 @@
-#' <Add Title>
+#' D3BarGraph from R
 #'
-#' <Add Description>
+#' Making a bar graph with D3 and R
 #'
+#'
+#' @param barData a numerical list of values as a dataframe from R. Used for bar height
+#' @param height numeric height for the graph's height in pixels.
+#' @param width numeric width for the network graph's width in pixels.
 #' @import htmlwidgets
 #'
 #' @export
-d3BarGraph <- function(message, width = NULL, height = NULL) {
+d3BarGraph <- function(barData, width = NULL, height = NULL) {
+  if(!is.data.frame(barData)){
+    barData<- as.data.frame(barData)
+  }
+  return(barData)
 
-  # forward options using x
-  x = list(
-    message = message
-  )
+  # forward options using x2
+  options = list(height=height, width=width)
+
+  params = list(data=barData, options=options)
+
+
 
   # create widget
   htmlwidgets::createWidget(
     name = 'd3BarGraph',
-    x,
+    x=params,
     width = width,
     height = height,
+    htmlwidgets::sizingPolicy(padding = 10, browser.fill = TRUE),
     package = 'd3BarGraph'
   )
 }

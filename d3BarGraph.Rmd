@@ -43,7 +43,7 @@ getwd()
 
 
 #If needed for testing:
-setwd("/Users/Nathan/Dropbox/R Projects Personal/pyramid/pyramid")
+setwd("/Users/Nathan/Dropbox/R Projects Personal/d3BarGraph")
 
 document() #create the man folder, automatically generate the pyramid.Rd file
 ```
