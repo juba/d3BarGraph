@@ -12,7 +12,7 @@ HTMLWidgets.widget({
                       .attr("width", width)
                       .attr("height", height);
 
-    return instance;
+    return {instance: instance};
 
   },
 
@@ -55,10 +55,10 @@ HTMLWidgets.widget({
 			   })
 			   .attr("text-anchor", "middle")
 			   .attr("x", function(d, i) {
-			   		return i * (w / df.length) + (w / df.length - barPadding) / 2;
+			   		return i * (width / df.length) + (width / df.length - barPadding) / 2;
 			   })
 			   .attr("y", function(d) {
-			   		return h - (d * 4) + 14;
+			   		return height - (d * 4) + 14;
 			   })
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "11px")
@@ -70,7 +70,8 @@ HTMLWidgets.widget({
   resize: function(el, width, height, instance) {
     // Re-render the previous value, if any
     if (instance.lastValue) {
-      this.renderValue(el, instance.lastValue, instance);
+      //this.renderValue(el, instance.lastValue, instance);
+      this.renderValue(el, instance.params, width, height)
     }
   }
 
