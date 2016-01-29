@@ -12,7 +12,7 @@ HTMLWidgets.widget({
                       .attr("width", width)
                       .attr("height", height);
 
-    return {instance: instance};
+    return {svg:svg};
 
   },
 
