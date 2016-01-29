@@ -13,7 +13,6 @@
 d3BarGraph <- function(barData, width = NULL, height = NULL) {
   if(!is.data.frame(barData)){
     barData<- as.data.frame(barData)
-    barData
   }
   #return(barData)
 
