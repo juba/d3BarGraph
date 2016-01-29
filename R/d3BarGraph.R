@@ -15,7 +15,7 @@ d3BarGraph <- function(barData, width = NULL, height = NULL) {
   }
   return(barData)
 
-  # forward options using x2
+  # forward options using params list
   options = list(height=height, width=width)
 
   params = list(data=barData, options=options)
