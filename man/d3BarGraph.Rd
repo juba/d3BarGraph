@@ -4,14 +4,14 @@
 \alias{d3BarGraph}
 \title{D3BarGraph from R}
 \usage{
-d3BarGraph(barData, width = NULL, height = NULL)
+d3BarGraph(df, width = NULL, height = NULL)
 }
 \arguments{
-\item{barData}{a numerical list of values or a dataframe from R. Used for bar height}
-
 \item{width}{numeric width for the graph's width in pixels.}
 
 \item{height}{numeric height for the graph's height in pixels.}
+
+\item{barData}{a numerical list of values or a dataframe from R. Used for bar height}
 }
 \value{
 hopefully a graph...and not just a blank screen

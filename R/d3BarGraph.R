@@ -11,23 +11,23 @@
 #' @import htmlwidgets
 #'
 #' @export
-d3BarGraph <- function(barData, width = NULL, height = NULL) {
-  if(!is.data.frame(barData)){
-    barData<- as.data.frame(barData)
+d3BarGraph <- function(df, width = NULL, height = NULL) {
+  if(!is.data.frame(df)){
+    df<- as.data.frame(df)
   }
   #return(barData)
 
   # forward options using params list
   options = list(height=height, width=width)
 
-  params = list(data=barData, options=options)
+  params = list(data=df, options=options)
 
 
 
   # create widget
   htmlwidgets::createWidget(
     name = 'd3BarGraph',
-    x=params,
+    params,
     width = width,
     height = height,
     htmlwidgets::sizingPolicy(padding = 10, browser.fill = TRUE),
