@@ -1,4 +1,4 @@
-function bard3() {
+function barD3() {
 
 var width = 600;  //default
 var height = 600;  //default
@@ -63,7 +63,7 @@ var height = 600;  //default
 
 
 
-}//goes with the the opening bard3(){ bracket
+}//goes with the the opening barD3(){ bracket
 
 
 
@@ -89,7 +89,7 @@ HTMLWidgets.widget({
 
     //create barD3 instance
 
-    return bard3().width(width).height(height).svg(svg);
+    return barD3().width(width).height(height).svg(svg);
 
   },
     resize: function(el, width, height, instance) {
@@ -106,17 +106,17 @@ HTMLWidgets.widget({
   renderValue: function(el, params, instance) {
    // instance.lastValue = params;
 
-   // var df = HTMLWidgets.dataframeToD3(params.data);
+    var df = HTMLWidgets.dataframeToD3(params.data);
 
    instance=instance.svg(svg);
 
-   var df = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
+   //var df = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
 
    d3.select(el)
     .call(instance);
 
    //Time for the bard3 function
-   return bard3().width(width).height(height).svg(svg);
+   return barD3().width(width).height(height).svg(svg);
   }
 
 

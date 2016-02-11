@@ -54,14 +54,14 @@ Now to install and run the package! Hopefully it works (Fingers crossed)
 getwd()
 setwd("..")
 getwd()
-install("pyramid")
+install("d3BarGraph")
 ```
 
 Let's load the library and make a go at it!
 
 ```{r}
-library(pyramid)
-pyramid::pyramid(df)
+library(d3BarGraph)
+d3BarGraph::d3BarGraph(numz, width = 300, height = 300) #somehow fails. How do I find out why/where?
 
 ```
 
