@@ -1,68 +1,85 @@
 function barD3() {
 
-var width = 600;  //default
-var height = 600;  //default
+        var data = []; // HTMLWidgets.dataframeToD3(params.data); //get data from htmlwidgets
+        var width = width || 600;  //default--value taken from htmlwidgets arguement, else 600
+        var height = height || 600;  //default --value taken from htmlwidgets argueemnt, else 600
+        var svg, xScale, yScale;
 
-  //  var barPadding = 1;
-
-    var xScale = d3.scale.ordinal()
-						.domain(d3.range(df.length))
-						.rangeRoundBands([0, width], 0.05); // <--change the w to width, set from el.offsetWidth
-
-		var yScale = d3.scale.linear()
-						.domain([0, d3.max(df[0])])
-						.range([0, height]); //changed h to height, set from el.offsetHeight
+        //var updateData;
+        //var updateWidth;
+        //var updateHeight;
+        var barPadding = 1;
+        var fillColor = 'steelblue';
 
 
 
 
-    svg.selectAll("rect")
-			   .data(df)
-			   .enter()
-			   .append("rect")
-			   .attr("x", function(d, i) {
-			   		return xScale(i);
-			   })
-			   .attr("y", function(d) {
-			   		return h - yScale(d);
-			   })
-			   .attr("width", xScale.rangeBand())
-			   .attr("height", function(d) {
-			   		return yScale(d);
-			   })
-			   .attr("fill", function(d) {
-					return "rgb(0, 0, " + (d * 10) + ")";
-			   });
-					svg.selectAll("text")
-			   .data(dataset)
-			   .enter()
-			   .append("text")
-			   .text(function(d) {
-			   		return d;
-			   })
-			   .attr("text-anchor", "middle")
-			   .attr("x", function(d, i) {
-			   		return xScale(i) + xScale.rangeBand() / 2;
-			   })
-			   .attr("y", function(d) {
-			   		return h - yScale(d) + 14;
-			   })
-			   .attr("font-family", "sans-serif")
-			   .attr("font-size", "11px")
-			   .attr("fill", "white");
+    function chart(selection){
+      selection.each(function (data){
+        var root = svg.append("g")
+            .attr("class", "root")
+            .style("fill", "#FFF");
+        var barSpacing = width/data.length;
+        var barWidth  = barSpacing - barPadding;
+        var maxValue = d3.max(data[0]);
+        //var minValue = d3.min(data[0]);
+        //var heightScale = height/maxValue;
+        var xScale = d3.scale.ordinal()
+  						.domain(d3.range(data.length))
+  						.rangeRoundBands([0, width], 0.05);
+
+  		  var yScale = d3.scale.linear()
+  						.domain([0, maxValue])
+  						.range([height,0]);
+
+        d3.select(this).append('svg')
+          .attr('height', height)
+          .attr('width', width)
+          .selectAll('rect')
+          .data(data)
+            .enter()
+          .append('rect')
+          .attr("x", function(d, i) {return xScale(i);})
+			    .attr("y", function(d) {return height - yScale(d);})
+			    .attr("width", barWidth)
+			    .attr("height", function(d) {return yScale(d);})
+			    .style('fill', fillColor);
+
+      }); // with function(data) and selection.each
+
+    }//with chart
+
+    function resize_chart() {
+      xScale.range([0, width]);
+      yScale.range([height, 0]);
+      svg.select(".root").attr('height', height).attr('width', width);
 
 
+    }
 
-			   return svg;
+          // resize
+      chart.resize = function() {
+          resize_chart(); //this lets us use barD3().chart.resize() later on in the resize function in HTMLWidgets
+          // need to ensure resize_chart() is a valid function
+       };
+      chart.width = function(value) {
+      	  if (!arguments.length) return width;//if nothing is passed to the function, return the default width
+      	  // and chart object
+        	width = value;
+          return chart;
+    	};
 
-
-
-
-
-
-
-
-
+    	chart.height = function(value) {
+        	if (!arguments.length) return height;
+        	height = value;
+        	return chart;
+    	};
+    	chart.svg = function(value) {
+          if (!arguments.length) return svg;
+          svg = value;
+          return chart;
+    };
+ return chart;
 }//goes with the the opening barD3(){ bracket
 
 
@@ -89,7 +106,7 @@ HTMLWidgets.widget({
 
     //create barD3 instance
 
-    return barD3().width(width).height(height).svg(svg);
+    return barD3().width(width).height(height).svg(svg); //passing the svg obj & options to the barD3 function.
 
   },
     resize: function(el, width, height, instance) {
@@ -106,16 +123,16 @@ HTMLWidgets.widget({
   renderValue: function(el, params, instance) {
    // instance.lastValue = params;
 
-    var df = HTMLWidgets.dataframeToD3(params.data);
+    var data = HTMLWidgets.dataframeToD3(params.data);
 
-   instance=instance.svg(svg);
+   instance=instance.svg(svg).data(data);
 
-   //var df = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
+   //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
 
    d3.select(el)
     .call(instance);
 
-   //Time for the bard3 function
+   //Time for the barD3 function
    return barD3().width(width).height(height).svg(svg);
   }
 
