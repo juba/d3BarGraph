@@ -1,10 +1,10 @@
 Package: d3BarGraph
-Title: What the Package Does (one line, title case)
+Title: Learning to Create D3 Bars in R
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Nathan", "Frey", email = "nathangfrey@gmail.com", role = c("aut", "cre"))
+Description: This is a learning project.
 Depends:
     R (>= 3.2.2)
-License: What license is it under?
+License: GPL
 LazyData: true
 RoxygenNote: 5.0.1
