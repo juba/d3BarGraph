@@ -1,6 +1,32 @@
-function barD3() {
+HTMLWidgets.widget({
 
-        //var data = HTMLWidgets.dataframeToD3(params.data); //get data from htmlwidgets
+  name: 'd3BarGraph',
+
+  type: 'output',
+
+  initialize: function(el, width, height) {
+
+    var svg =  d3.select(el).append("svg");
+    svg
+    .attr("width", width)
+    .attr("height", height);
+
+  //  return barD3().width(width).height(height).svg(svg); //passing the svg obj & options to the barD3 function.
+return {svg:svg};
+  },
+
+
+  renderValue: function(el, params, instance) {
+
+   var data = HTMLWidgets.dataframeToD3(params.data);
+
+   var svg =  d3.select(el).select("svg");
+
+
+
+    function barD3() {
+
+        //var data = HTMLWidgets.dataframeToD3(params.data); //get data from htmlwidgets --params is not defined
         //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
         //var data = data;
 
@@ -9,7 +35,8 @@ function barD3() {
         // xScale and yScale are probably not needed here
         // barPadding and fillColor will be set to user defined values later...hardcoded for now
 
-        var data =[]; //Following juba's example on GitHub
+        //var data; //Following juba's example on GitHub
+        var data = data;
         var width = width || 600;  //default--value taken from htmlwidgets arguement, else 600
         var height = height || 600;  //default --value taken from htmlwidgets argueemnt, else 600
         var svg, xScale, yScale;
@@ -24,10 +51,10 @@ function barD3() {
         var root = svg.append("g")
             .attr("class", "root")
             .style("fill", "#FFF");
-        var barSpacing = width/data.length;
+        var barSpacing = width/ data.length;
         var barWidth  = barSpacing - barPadding;
-        var maxValue = d3.max(data[0]);
-        //var minValue = d3.min(data[0]);
+        var maxValue = d3.max(data);
+        //var minValue = d3.min(data);
         //var heightScale = height/maxValue;
         var xScale = d3.scale.ordinal()
   						.domain(d3.range(data.length))
@@ -92,52 +119,7 @@ function barD3() {
  return chart;
 }//goes with the the opening barD3(){ bracket
 
-
-
-
-
-
-
-
-HTMLWidgets.widget({
-
-  name: 'd3BarGraph',
-
-  type: 'output',
-
-  //renderOnNullValue: true,
-
-  initialize: function(el, width, height) {
-
-    var svg =  d3.select(el).append("svg");
-    svg
-    .attr("width", width)
-    .attr("height", height);
-
-    //create barD3 instance
-    var data = HTMLWidgets.dataframeToD3(params.data);
-   //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
-
-    return barD3().width(width).height(height).svg(svg).data(data); //passing the svg obj & options to the barD3 function.
-
-  },
-    resize: function(el, width, height, instance) {
-
-    //var svg = instance.svg;
-    var svg = d3.select(el).select("svg");
-    svg
-    .attr('width', width)
-    .attr('height', height);
-
-    instance.width(width).height(height).svg(svg).resize();
-  },
-
-  renderValue: function(el, params, instance) {
-   //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
-   // var data = HTMLWidgets.dataframeToD3(params.data);
-    var svg =  d3.select(el).select("svg");
-
-   instance=instance.svg(svg).data(data);
+  // instance=instance.svg(svg).data(data);
 
 
 
@@ -145,7 +127,20 @@ HTMLWidgets.widget({
     .call(instance);
 
    //Time for the barD3 function
-   return barD3().width(width).height(height).svg(svg);
+   return barD3().width(width).height(height).svg(svg).data(data);
+  },
+
+  resize: function(el, width, height, instance) {
+
+ /*   //var svg = instance.svg;
+    var svg = d3.select(el).select("svg");
+    svg
+    .attr('width', width)
+    .attr('height', height)
+    .resize();
+
+  //  instance.width(width).height(height).svg(svg).resize(); //instance gets at function(chart)
+  */
   }
 
 
