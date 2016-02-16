@@ -1,28 +1,3 @@
-HTMLWidgets.widget({
-
-  name: 'd3BarGraph',
-
-  type: 'output',
-
-  initialize: function(el, width, height) {
-
-    var svg =  d3.select(el).append("svg");
-    svg
-    .attr("width", width)
-    .attr("height", height);
-
-  //  return barD3().width(width).height(height).svg(svg); //passing the svg obj & options to the barD3 function.
-return {svg:svg};
-  },
-
-
-  renderValue: function(el, params, instance) {
-
-   var data = HTMLWidgets.dataframeToD3(params.data);
-
-   var svg =  d3.select(el).select("svg");
-
-
 
     function barD3() {
 
@@ -36,7 +11,7 @@ return {svg:svg};
         // barPadding and fillColor will be set to user defined values later...hardcoded for now
 
         //var data; //Following juba's example on GitHub
-        var data = data;
+        var data;
         var width = width || 600;  //default--value taken from htmlwidgets arguement, else 600
         var height = height || 600;  //default --value taken from htmlwidgets argueemnt, else 600
         var svg, xScale, yScale;
@@ -47,34 +22,29 @@ return {svg:svg};
 
 
     function chart(selection){
-      selection.each(function (data){
+      selection.each(function (){
         var root = svg.append("g")
             .attr("class", "root")
             .style("fill", "#FFF");
-        var barSpacing = width/ data.length;
-        var barWidth  = barSpacing - barPadding;
-        var maxValue = d3.max(data);
         //var minValue = d3.min(data);
         //var heightScale = height/maxValue;
-        var xScale = d3.scale.ordinal()
-  						.domain(d3.range(data.length))
-  						.rangeRoundBands([0, width], 0.05);
-
+        var barSpacing = width/ data.length;
+        var barWidth  = barSpacing - barPadding;
+        var maxValue = d3.max(data, function(d) { return(d.x);} );
+        console.log(maxValue);
   		  var yScale = d3.scale.linear()
   						.domain([0, maxValue])
-  						.range([height,0]);
-
-        d3.select(this).append('svg')
-          .attr('height', height)
-          .attr('width', width)
-          .selectAll('rect')
+  						.range([0, height]);
+        root
+          .selectAll('.bar')
           .data(data)
             .enter()
           .append('rect')
-          .attr("x", function(d, i) {return xScale(i);})
-			    .attr("y", function(d) {return height - yScale(d);})
+          .attr("x", function(d, i) {return i*barSpacing;})
+			    .attr("y", function(d) {return height - yScale(d.x);})
+			    .attr("class", "bar")
 			    .attr("width", barWidth)
-			    .attr("height", function(d) {return yScale(d);})
+			    .attr("height", function(d) {return yScale(d.x);})
 			    .style('fill', fillColor);
 
       }); // with function(data) and selection.each
@@ -122,12 +92,35 @@ return {svg:svg};
   // instance=instance.svg(svg).data(data);
 
 
+HTMLWidgets.widget({
+
+  name: 'd3BarGraph',
+
+  type: 'output',
+
+  initialize: function(el, width, height) {
+
+    var svg =  d3.select(el).append("svg");
+    svg
+    .attr("width", width)
+    .attr("height", height);
+
+  return barD3().width(width).height(height).svg(svg); //passing the svg obj & options to the barD3 function.
+
+  },
+
+
+  renderValue: function(el, params, instance) {
+
+   var data = HTMLWidgets.dataframeToD3(params.data);
+
+   var svg =  d3.select(el).select("svg");
+
+    instance = instance.data(data);
 
    d3.select(el)
     .call(instance);
 
-   //Time for the barD3 function
-   return barD3().width(width).height(height).svg(svg).data(data);
   },
 
   resize: function(el, width, height, instance) {

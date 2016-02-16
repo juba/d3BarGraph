@@ -3,7 +3,7 @@
 #' Making a bar graph with D3 and R
 #'
 #'
-#' @param barData a numerical list of values or a dataframe from R. Used for bar height
+#' @param x a numerical list of values. Used for bar height
 #' @param height numeric height for the graph's height in pixels.
 #' @param width numeric width for the graph's width in pixels.
 #' @return hopefully a graph...and not just a blank screen
@@ -11,10 +11,8 @@
 #' @import htmlwidgets
 #'
 #' @export
-d3BarGraph <- function(df, width = NULL, height = NULL) {
-  if(!is.data.frame(df)){
-    df<- as.data.frame(df)
-  }
+d3BarGraph <- function(x, width = NULL, height = NULL) {
+    df<- data.frame(x=x)
   #return(barData)
 
   # forward options using params list
