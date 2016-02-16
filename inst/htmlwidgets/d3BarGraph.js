@@ -1,13 +1,18 @@
 function barD3() {
 
-        var data = []; // HTMLWidgets.dataframeToD3(params.data); //get data from htmlwidgets
+        //var data = HTMLWidgets.dataframeToD3(params.data); //get data from htmlwidgets
+        //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
+        //var data = data;
+
+        //This is where Rob Moore says to initialize variables you want to make visible to the calling function
+        // In this case: data, width, height, svg
+        // xScale and yScale are probably not needed here
+        // barPadding and fillColor will be set to user defined values later...hardcoded for now
+
+        var data =[]; //Following juba's example on GitHub
         var width = width || 600;  //default--value taken from htmlwidgets arguement, else 600
         var height = height || 600;  //default --value taken from htmlwidgets argueemnt, else 600
         var svg, xScale, yScale;
-
-        //var updateData;
-        //var updateWidth;
-        //var updateHeight;
         var barPadding = 1;
         var fillColor = 'steelblue';
 
@@ -74,6 +79,11 @@ function barD3() {
         	height = value;
         	return chart;
     	};
+    	chart.data = function(value) {
+        if (!arguments.length) return data;
+        data = value;
+        return chart;
+    };
     	chart.svg = function(value) {
           if (!arguments.length) return svg;
           svg = value;
@@ -105,8 +115,10 @@ HTMLWidgets.widget({
     .attr("height", height);
 
     //create barD3 instance
+    var data = HTMLWidgets.dataframeToD3(params.data);
+   //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
 
-    return barD3().width(width).height(height).svg(svg); //passing the svg obj & options to the barD3 function.
+    return barD3().width(width).height(height).svg(svg).data(data); //passing the svg obj & options to the barD3 function.
 
   },
     resize: function(el, width, height, instance) {
@@ -121,13 +133,13 @@ HTMLWidgets.widget({
   },
 
   renderValue: function(el, params, instance) {
-   // instance.lastValue = params;
-
-    var data = HTMLWidgets.dataframeToD3(params.data);
+   //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
+   // var data = HTMLWidgets.dataframeToD3(params.data);
+    var svg =  d3.select(el).select("svg");
 
    instance=instance.svg(svg).data(data);
 
-   //var data = [8,16,10,18,19,4,12,18,12,11,19,11,15,13,5];
+
 
    d3.select(el)
     .call(instance);
