@@ -29,8 +29,9 @@ numz
 
 Now, we'll set up the file scaffolding. I need to find out if running these after I have done work on the widget JavaScript code and R code will wipe out my work. I'll just run this onceInstead, only run the devtools::install() to rebuild the widget and launch it.  
 ```{r}
-create("d3BarGraph") #create the package skelton
-htmlwidgets::scaffoldWidget("d3BarGraph") 
+
+#create("d3BarGraph") #create the package skelton
+#htmlwidgets::scaffoldWidget("d3BarGraph") 
 ```
 
 Now make the necessary edits to the .yaml file, pyramid.R file, and pyramid.js files.   
